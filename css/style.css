@@ -32,41 +32,116 @@ main {
 }
 
 .main-content section {
+    margin-top: 5px;
     margin-left: 120px;
 }
 
 .main-content h1 {
     font-size: 18px;
-    font-family: 'Roboto';
+    font-family: 'Roboto', sans-serif;
 }
 
-.main-content>section div {
-    margin-top: 40px;
+.main-content section>div {
+    margin-top: 35px;
 }
 
-.main-content>section div h1 {
+.main-content section>div h1 {
+    font-weight: bold;
     margin-bottom: 10px;
 }
 
-.main-content>section ul {
+.main-content section ul {
     display: flex;
 }
 
-.main-content>section ul li {
+.main-content section ul li {
     background-image: url('../Images/Camiseta.png');
     background-size: contain;
     height: 100px;
     width: 100px;
-    border: 0.5px solid #c4c4c4;
     background-color: #f2f2f2;
-    margin-right: 40px;
     border-radius: 50%;
+}
+
+.default-li{
+    border: 0.5px solid #c4c4c4;
+}
+
+.model{
+    margin-right: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+}
+
+.model li:hover{
+    cursor:pointer;
+    border: 3px solid #404EED;
+}
+
+.li-selected{
+    cursor:pointer;
+    border: 3px solid #404EED;
+}
+
+.model p{
+    margin-top:5px;
+    width: 120px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    text-align: center;
+}
+
+.main-content section>div h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    color: #232323;
+}
+
+.main-content section>div input {
+    padding-left: 15px;
+    margin-top: 10px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    height: 40px;
+    width: 84%;
+    border: none;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    color:#232323;
+}
+
+.main-content section>div input::placeholder {
+
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+}
+
+.main-content section > button{
+    margin-top:25px;
+    margin-bottom:40px;
+    border-radius:10px;
+    width: 85%;
+    border:none;
+    height: 40px;
+    color: #fcfcfc;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+}
+.default-button{
+    background-color: #c4c4c4;
+}
+.button-selected{
+    cursor:pointer;
+    background-color: #404EED;
 }
 
 aside {
     background-color: #404EED;
     width: 100%;
-    height: 500px;
+    height: 775px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -107,4 +182,20 @@ aside {
     border-radius: 10px;
     height: 235px;
     background-color: white;
+}
+.last-orders ul li h1{
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    max-width: 180px;
+    overflow: hidden;
+}
+.last-orders ul li a{
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+}
+.last-orders img{
+    height: 180px;
+    width: 180px;
 }

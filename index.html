@@ -18,22 +18,93 @@
     <main>
         <div class="main-content">
             <section>
-                <div class="choose-option">
+                <div class="choose-model">
                     <h1>Escolha o modelo</h1>
                     <ul>
                         <div class="model">
-                            <li>
+                            <li class="default-li" onclick="selectModel(this)">
                             </li>
-                            T-shirt
+                            <p>
+                                T-shirt
+                            </p>
                         </div>
-                        <li>
-                            <div>Camiseta</div>
-                        </li>
-                        <li>
-                            <div>Manga longa</div>
-                        </li>
+                        <div class="model">
+                            <li class="default-li" onclick="selectModel(this)">
+                            </li>
+                            <p>
+                                Camiseta
+                            </p>
+                        </div>
+                        <div class="model">
+                            <li class="default-li" onclick="selectModel(this)">
+                            </li>
+                            <p>
+                                Manga longa
+                            </p>
+                        </div>
                     </ul>
                 </div>
+                <div class="choose-collar">
+                    <h1>Escolha a gola</h1>
+                    <ul>
+                        <div class="model">
+                            <li class="default-li" onclick="selectCollar(this)">
+                            </li>
+                            <p>
+                                Gola V
+                            </p>
+                        </div>
+                        <div class="model">
+                            <li class="default-li" onclick="selectCollar(this)">
+                            </li>
+                            <p>
+                                Gola Redonda
+                            </p>
+                        </div>
+                        <div class="model">
+                            <li class="default-li" onclick="selectCollar(this)">
+                            </li>
+                            <p>
+                                Gola polo
+                            </p>
+                        </div>
+                    </ul>
+                </div>
+                <div class="choose-cloth">
+                    <h1>Escolha o tecido</h1>
+                    <ul>
+                        <div class="model">
+                            <li class="default-li" onclick="selectCloth(this)">
+                            </li>
+                            <p>
+                                Seda
+                            </p>
+                        </div>
+                        <div class="model">
+                            <li class="default-li" onclick="selectCloth(this)">
+                            </li>
+                            <p>
+                                Algodão
+                            </p>
+                        </div>
+                        <div class="model">
+                            <li class="default-li" onclick="selectCloth(this)">
+                            </li>
+                            <p>
+                                Poliéster
+                            </p>
+                        </div>
+                    </ul>
+                </div>
+                <div>
+                    <h2>
+                        Imagem de referência
+                    </h2>
+                    <input type="text" placeholder="Insira o link">
+                </div>
+                <button class="default-button">
+                    Confirmar pedido
+                </button>
             </section>
             <aside>
             </aside>
@@ -43,29 +114,30 @@
                 <ul>
                     <li>
                         <img src="./Images/Blusa1.png">
-                        <div>Criador: Agata</div>
+                        <h1>Criador: <a>Agata</a></h1>
                     </li>
                     <li>
                         <img src="./Images/Blusa2.png">
-                        <div>Criador: Bruna</div>
+                        <h1>Criador: <a>Bruna</a></h1>
                     </li>
                     <li>
                         <img src="./Images/Blusa3.png">
-                        <div>Criador: Bruna</div>
+                        <h1>Criador: <a>Rayandson</a></h1>
                     </li>
                     <li>
                         <img src="./Images/Blusa4.png">
-                        <div>Criador: Bruna</div>
+                        <h1>Criador: <a>Bruna</a></h1>
                     </li>
                     <li>
                         <img src="./Images/Blusa5.png">
-                        <div>Criador: Bruna</div>
+                        <h1>Criador: <a>Bruna</a></h1>
                     </li>
                 </ul>
             </div>
         </section>
     </main>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
