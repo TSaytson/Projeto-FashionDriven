@@ -1,67 +1,73 @@
 const URL_API = 'https://mock-api.driven.com.br/api/v4/shirts-api/shirts';
 
-const model = [{
-        name: 'T-shirt',
+const models = [{
+        name: 't-shirt',
         image: './Images/tshirt.png'
     },
     {
-        name:'Camiseta',
+        name:'top-tank',
         image:'./Images/Camiseta.png'
     },
     {
-        name: 'Manga longa',
+        name: 'long',
         image:'./Images/Mangalonga.png'
     }
 ]
 
-const collar = [{
-        name: 'Gola V',
+const collars = [{
+        name: 'v-neck',
         image: './Images/GolaV.png'
     },
     {
-        name: 'Gola Redonda',
+        name: 'round',
         image: './Images/GolaRedonda.png'
     },
     {
-        name: 'Gola polo',
+        name: 'polo',
         image: './Images/GolaPolo.png'
     }
 ]
 
-const cloth = [{
-        name: 'Seda',
+const cloths = [{
+        name: 'silk',
         image:'./Images/Seda.png'
     },
     {
-        name: 'Algodão',
+        name: 'cotton',
         image: './Images/Algodão.png'
     },
     {
-        name: 'Poliéster',
+        name: 'polyester',
         image: './Images/Poliester.png'
     }
 ]
 
+let model;
+let neck;
+let material;
+let owner = prompt('Digite seu nome: ');
+let author = owner;
+
 let lastOrders = [];
 
 function showLastOrders() {
-    const lastOrdersList = document.querySelector('.last-orders ul');
-    lastOrdersList.innerHTML = '';
-    for (let i = 0; i < lastOrders.length; i++) {
-        lastOrdersList.innerHTML += `
-        <li>
-            <img src=${lastOrders[i].image}>
-            <h1>Criador: <a>${lastOrders[i].owner}</a></h1>
-        </li>`
-    }
+    const promise = axios.get(URL_API);
+    promise.then((promise) => {
+        lastOrders = promise.data
+        const lastOrdersList = document.querySelector('.last-orders ul');
+        lastOrdersList.innerHTML = '';
+        for (let i = 0; i < lastOrders.length; i++) {
+            lastOrdersList.innerHTML += `
+            <li onclick="confirmLastOrder(this)" id=${lastOrders[i].id}>
+                <img src=${lastOrders[i].image}>
+                <h1>Criador: <a>${lastOrders[i].owner}</a></h1>
+            </li>`
+        }
+    })
+    promise.catch(() => console.log('erro no axios.get'));
 }
 
-const promise = axios.get(URL_API);
-promise.then((promise) => {
-    lastOrders = promise.data;
-    showLastOrders();
-});
-promise.catch()
+
 /*function showOptions(optionName) {
     const divOption = document.querySelector(`.choose-${optionName}`);
     divOption.innerHTML = `
@@ -95,33 +101,85 @@ promise.catch()
 }*/
 
 
-function verifyURL() {
-    const inputValue = document.querySelector('input').value;
-    console.log();
-    try {
-        let url = new URL(inputValue);
-        console.log("Valid URL!");
-    } catch (err) {
-        alert("Link da imagem de referência inválido!");
-    }
-    confirmOrder();
-}
-
 function confirmOrder() {
+    const stringURL = verifyURL();
+    if (stringURL) {
+        const postBody = {
+            model: model,
+            neck: neck,
+            material: material,
+            image: stringURL,
+            owner: owner,
+            author: author
+        }
+        const promise = axios.post(URL_API, postBody);
+        promise.then(() => {
+            alert('Encomenda confirmada');
+            showLastOrders();
+        });
+        //promise.catch(alert('Ops, não conseguimos processar sua encomenda'));
+    }
     
 }
 
+function confirmLastOrder(selector) {
+    const selectorId = selector.getAttribute('id');
+    for (let i = 0; i < lastOrders.length; i++){
+        if (lastOrders[i].id == selectorId) {
+            const postBody = {
+                model: lastOrders[i].model,
+                neck: lastOrders[i].neck,
+                material: lastOrders[i].material,
+                image: lastOrders[i].image,
+                owner: lastOrders[i].owner,
+                author: lastOrders[i].owner
+            }
+            confirm('Deseja encomendar este modelo?');
+            axios.post(URL_API, postBody);
+            break;
+        }
+        
+    }
+    showLastOrders();
+    showLastOrders();
+}
+
+function verifyURL() {
+    const input = document.querySelector('input');
+    try {
+        let url = new URL(input.value);
+        return input.value;
+    } catch (err) {
+        input.placeholder = 'Preencha com um link de imagem válido';
+        return false;
+    }
+
+}
 
 function verifySelected() {
     const selected = document.querySelectorAll('.li-selected');
     if (selected.length === 3) {
-        const URL = document.querySelector('input').value;
-        console.log(URL);
         const button = document.querySelector('button');
         button.classList.add('button-selected');
-        button.setAttribute('onclick', `verifyURL()`);
+        verifyURL();
+        button.setAttribute('onclick', `confirmOrder()`);
     }
 
+}
+
+function switchSelected(seletor, cases, variable, array) {
+    switch (seletor.nextElementSibling.innerText) {
+        case cases[0]:
+            variable = array[0].name;
+            break;
+        case cases[1]:
+            variable = array[1].name;
+            break;
+        case cases[2]:
+            variable = array[2].name;
+            break;
+    }
+    return variable;
 }
 
 function selectModel(seletor) {
@@ -132,6 +190,9 @@ function selectModel(seletor) {
         liElements[liElements.length - 1].classList.remove('li-selected');
         seletor.classList.add('li-selected');
     }
+
+    const cases = ['T-shirt', 'Camiseta', 'Manga longa'];
+    model = switchSelected(seletor, cases, model, models);
     verifySelected();
 }
 
@@ -143,6 +204,9 @@ function selectCollar(seletor) {
         liElements[liElements.length - 1].classList.remove('li-selected');
         seletor.classList.add('li-selected');
     }
+
+    const cases = ['Gola V', 'Gola Redonda', 'Gola polo'];
+    neck = switchSelected(seletor, cases, neck, collars);
     verifySelected();
 }
 
@@ -154,7 +218,9 @@ function selectCloth(seletor) {
         liElements[liElements.length - 1].classList.remove('li-selected');
         seletor.classList.add('li-selected');
     }
+    const cases = ['Seda', 'Algodão', 'Poliéster'];
+    material = switchSelected(seletor, cases, material, cloths);
     verifySelected();
 }
 
-//showLastOrders();
+showLastOrders();

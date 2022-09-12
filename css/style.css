@@ -196,6 +196,7 @@ aside {
     font-weight: normal;
 }
 .last-orders img{
+    cursor: pointer;
     height: 180px;
     width: 180px;
 }
